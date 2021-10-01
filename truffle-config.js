@@ -1,8 +1,9 @@
 require('babel-register');
 require('babel-polyfill');
 require('dotenv').config();
-const HDWalletProvider = require('truffle-hdwallet-provider-privkey');
-const privateKeys = process.env.PRIVATE_KEYS || ""
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+const fs = require('fs');
+const mnemonic = fs.readFileSync(".secret").toString().trim();
 
 module.exports = {
   networks: {
@@ -44,7 +45,7 @@ module.exports = {
       gasPrice: 5000000000, // 5 gwei
       network_id: 4
     },
-    ropsten: {
+    ropstenn: {
       provider: function() {
         return new HDWalletProvider(
           privateKeys.split(','), // Array of account private keys
@@ -54,7 +55,17 @@ module.exports = {
       gas: 5000000,
       gasPrice: 5000000000, // 5 gwei
       network_id: 3
+    },
+
+    ropsten: {
+      provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/e28923c8a79944169b7ddf9165b35daf`),
+      network_id: 3,       // Ropsten's id
+      gas: 5500000,        // Ropsten has a lower block limit than mainnet
+      confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true 
     }
+
   },
   contracts_directory: './src/contracts/',
   contracts_build_directory: './src/abis/',
