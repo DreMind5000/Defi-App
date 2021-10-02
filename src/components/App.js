@@ -6,6 +6,7 @@ import dbank from '../dbank.png';
 import Web3 from 'web3';
 import './App.css';
 
+
 class App extends Component {
 
   async componentWillMount() {
@@ -97,6 +98,7 @@ class App extends Component {
       balance: 0,
       dBankAddress: null
     }
+    
   }
 
   render() {

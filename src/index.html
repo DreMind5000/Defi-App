@@ -1,0 +1,31 @@
+
+
+<html>
+  <head>
+    
+	<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+	<script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+  </head>
+
+  <body>
+
+	<center><button onclick="login()">Login with Metamask</button></center>
+
+	<script>
+		Moralis.initialize("2x8ylQCbCTga0fLfc17UtwF9gVQqYlJrhJTCHpe3"); // Application id from moralis.io
+		Moralis.serverURL = "https://rm4x3zsxqgcr.moralishost.com:2053/server"; //Server url from moralis.io
+	
+		async function login(){
+			console.log("login clicked");
+			var user = await Moralis.Web3.authenticate();
+			if(user){
+				console.log(user);
+				user.set("nickname","VITALIK");
+				user.set("fav_color","blue");
+				user.save();
+			}
+		}
+	
+	</script>
+  </body>
+</html>
